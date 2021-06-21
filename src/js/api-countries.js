@@ -12,7 +12,7 @@ const refs = getRefs();
 
 var debounce = require('lodash.debounce');
 
-refs.searchForm.addEventListener('input', debounce(onSearch, 800));
+refs.searchForm.addEventListener('input', debounce(onSearch, 500));
 
 
 
@@ -53,7 +53,11 @@ function renderCountryCard(countriesInfo) {
 };
 
 function onFetchError(error) {
-     alert('There is no country with that name');
+     alert({
+        text: "There is no country with that name",
+        title: `Error`,
+        delay: 400,
+        });
  
 }
 
