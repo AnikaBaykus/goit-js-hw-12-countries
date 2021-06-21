@@ -14,22 +14,31 @@ function onSearch(event) {
     const searchQuery = event.target.value.trim();
     console.log(searchQuery);
 
+
     API.fetchCountryByName(searchQuery)
         .then(renderCountryCard)
         .catch(onFetchError);
 }
 
 
-
-
-
 function renderCountryCard(countriesInfo) {
-    const markup = countryCardTpl(...countriesInfo);
+    let markup = '';
+
+    if (countriesInfo.length === 1){
+        markup = countryCardTpl(...countriesInfo);
         console.log(markup);
-        refs.countryCard.innerHTML = markup;
+        refs.countryResult.innerHTML = markup;
+    }
+    if (countriesInfo.length > 1 && countriesInfo.length <= 10 ){
+        markup = countryListTpl(countriesInfo);
+        console.log(markup);
+        refs.countryResult.innerHTML = markup;
+    }
+    
+    
 };
 
 function onFetchError(error) {
-    alert('Упс, что-то не то ввели...')
+    console.log('Упс, что-то не то ввели...')
 }
 

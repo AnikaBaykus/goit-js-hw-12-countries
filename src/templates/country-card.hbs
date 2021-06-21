@@ -1,20 +1,21 @@
 
 
-<div class="country">   
+<div class="country">  
+<h2 class="country-name">{{name}}</h2> 
     <div class="country-info">
-        <h2 class="country-name">{{name}}</h2>
-        <p class="country-capital">Capital: {{{capital}}}</p>
-        <p class="country-population">Population: {{population}}</p>
-        <ul class="country-languages">Languages:
-        {{#each languages}}     
-            <li class="languages">{{name}}</li>
-        {{/each}}
-        </ul>
+        <div>
+            <p class="country-capital">Capital: {{{capital}}}</p>
+            <p class="country-population">Population: {{population}}</p>
+            <ul class="country-languages">Languages:
+            {{#each languages}}     
+                <li class="languages">{{name}}</li>
+            {{/each}}
+            </ul>
+         </div>
         <div class="country-img">
-            <img src="{{flag}}" alt="{{name}}">
+            <img src="{{flag}}" alt="{{name}}" width="450px" 
         </div>
     </div>
-
 </div>
 
 {{!-- название, столица, население, языки и флаг. --}}
