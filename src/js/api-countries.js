@@ -1,11 +1,18 @@
 import countryCardTpl from '../templates/country-card.hbs';
 import countryListTpl from '../templates/country-list.hbs';
-import API from './api-service.js';
+import API from './fetchCountries.js';
 import getRefs from './get-refs.js';
+
+import "@pnotify/core/dist/BrightTheme";
+import { alert, error, defaultModules } from "@pnotify/core/dist/PNotify";
+
+
 
 const refs = getRefs();
 
-refs.searchForm.addEventListener('input', onSearch);
+var debounce = require('lodash.debounce');
+
+refs.searchForm.addEventListener('input', debounce(onSearch, 800));
 
 
 
@@ -15,9 +22,10 @@ function onSearch(event) {
     console.log(searchQuery);
 
 
-    API.fetchCountryByName(searchQuery)
+    API.fetchCountries(searchQuery)
         .then(renderCountryCard)
-        .catch(onFetchError);
+        .catch(onFetchError)
+        .finally(onFetchError);
 }
 
 
@@ -34,11 +42,18 @@ function renderCountryCard(countriesInfo) {
         console.log(markup);
         refs.countryResult.innerHTML = markup;
     }
-    
+    if (countriesInfo.length > 10){
+        error({
+            text: "Please enter more characters.",
+            delay: 500,
+            title: "Oops! Too many results."
+        })
+    }
     
 };
 
 function onFetchError(error) {
-    console.log('Упс, что-то не то ввели...')
+     alert('There is no country with that name');
+ 
 }
 
