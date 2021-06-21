@@ -25,7 +25,7 @@ function onSearch(event) {
     API.fetchCountries(searchQuery)
         .then(renderCountryCard)
         .catch(onFetchError)
-        .finally(onFetchError);
+        .finally();
 }
 
 
@@ -53,11 +53,6 @@ function renderCountryCard(countriesInfo) {
 };
 
 function onFetchError(error) {
-     alert({
-        text: "There is no country with that name",
-        title: `Error`,
-        delay: 400,
-        });
- 
-}
+    console.log(error)
+};
 
